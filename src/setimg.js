@@ -73,6 +73,7 @@ function generate_pass(imgdatalength,information,pass,copy){
 }
 
 function dctset(imgData,dctdata,width,height,setarray,lim){
+    var yassKey = ""
     function norm(a){
         a=Math.round(a);
         a=(a>255)?255:a;
@@ -108,21 +109,72 @@ function dctset(imgData,dctdata,width,height,setarray,lim){
     }
 }
 
+function yassset(imgData,dctdata,width,height,setarray,lim,opt){
+    var rand = Math.seed(stringToSeed(opt.pass));
+	var rirg = () => {return Math.floor(rand() * (opt.bsize - 8))}
+    function norm(a){
+        a=Math.round(a);
+        a=(a>255)?255:a;
+        return (a<0)?0:a;
+    }
+    var dctdatalength=dctdata.length;
+    var datalength=setarray.length/3;
+    for(var i=0;i<datalength;i++){
+		//Y 2-bit, Cr+Cb 1-bit
+        dctdata[i][0][0]=(setarray[i*3])?dct_setbit(dctdata[i][0][0],lim):dct_unsetbit(dctdata[i][0][0],lim);
+		dctdata[i][0][1]=(setarray[i*3+1])?dct_setbit(dctdata[i][0][1],lim):dct_unsetbit(dctdata[i][0][1],lim);
+		dctdata[i][0][2]=(setarray[i*3+2])?dct_setbit(dctdata[i][0][2],lim):dct_unsetbit(dctdata[i][0][2],lim);
+    }
+    var blocksize= 8;
+    var w_ite=Math.floor(width/opt.bsize);
+    var h_ite=Math.floor(height/opt.bsize);
+    var result=Array();
+    var count=0;
+    for(var h=0;h<h_ite;h++)
+        for(var w=0;w<w_ite;w++)
+        {
+            var w_offset = rirg();
+			var h_offset = rirg();
+            var tmp=imagedct(dctdata[count],true);               
+            for(var i=0;i<blocksize;i++) for(var j=0;j<blocksize;j++){
+				var rgb = ycbcrtorgb(tmp[i*blocksize+j][0],tmp[i*blocksize+j][1],tmp[i*blocksize+j][2]);
+				for(var chann=0;chann<3;chann++)
+					imgData[((h*blocksize+i+h_offset)*width+w*blocksize+j+w_offset)*4+chann]=norm(rgb[chann]);
+            }
+            count++;
+        }
+    for (var i=0;i<imgData.length;i+=4)
+    {
+        imgData[i+3]=255;
+    }
+}
+
 //Write msg to the image in canvasid.
 //Return: null - fail. 1 - successful
-function writeMsgToCanvas_single(canvasid,msg,pass,dct,copy,lim){
-    dct=(dct === undefined)?false:dct;
+function writeMsgToCanvas_single(canvasid,msg,pass,dct,copy,lim,yassopt){
+    yass=(yassopt=== undefined)?false:true;
+    if (yass && pass=== undefined) return null; //there must be a password for yass
+    dct=(yass)?true:((dct === undefined)?false:dct);
     pass=(pass=== undefined)?'':pass;
     copy=(copy=== undefined)?5:copy;
     lim=(lim=== undefined)?30:lim;
     var c=document.getElementById(canvasid);
     var ctx=c.getContext("2d");
     var imgData=ctx.getImageData(0,0,c.width,c.height);
-    var dctdata=(dct)?dctconvert(imgData.data,c.width,c.height):null;
+    if (yass) {
+        yassopt.pass = pass;
+        var dctdata = yassconvert(imgData.data,c.width,c.height,yassopt);
+    } else {
+        var dctdata=(dct)?dctconvert(imgData.data,c.width,c.height):null;
+    } 
     var datalength=(dct)?dctdata.length*3:Math.floor(imgData.data.length/4)*3;
     var setarray = (dct)?generate_pass(datalength,msg,pass,copy):generate_pass(datalength,msg,pass,1);
     if(setarray==null) return null;
-    (dct)?dctset(imgData.data,dctdata,c.width,c.height,setarray,lim):setimgdata(imgData,setarray);
+    if (yass) {
+        yassset(imgData.data,dctdata,c.width,c.height,setarray,lim,yassopt);
+    } else {
+        (dct)?dctset(imgData.data,dctdata,c.width,c.height,setarray,lim):setimgdata(imgData,setarray);
+    }
     ctx.putImageData(imgData,0,0);
     return 1;
 }

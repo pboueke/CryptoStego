@@ -112,3 +112,27 @@ function dctconvert(imgData,width,height){
         }
     return result;
 }
+
+function yassconvert(imgData,width,height,opt){
+	var rand = Math.seed(stringToSeed(opt.pass));
+	var rirg = () => {return Math.floor(rand() * (opt.bsize - 8))}
+	var blocksize= 8;
+    var w_ite=Math.floor(width/opt.bsize);
+    var h_ite=Math.floor(height/opt.bsize);
+    var result=Array();
+    for(var h=0;h<h_ite;h++)
+        for(var w=0;w<w_ite;w++)
+        {
+			var w_offset = rirg();
+			var h_offset = rirg();
+            var tmp=Array();
+            for(var i=0;i<blocksize;i++) for(var j=0;j<blocksize;j++){
+                tmp.push(rgbtoycbcr(imgData[((h*opt.bsize+i+h_offset)*width+w*blocksize+j+w_offset)*4],
+				imgData[((h*blocksize+i+h_offset)*width+w*blocksize+j+w_offset)*4+1],
+				imgData[((h*blocksize+i+h_offset)*width+w*blocksize+j+w_offset)*4+2]
+				));
+            }
+            result.push(imagedct(tmp));
+        }
+    return result;
+}

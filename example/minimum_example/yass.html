@@ -7,13 +7,12 @@
 <body>
 <a href="https://github.com/zeruniverse/CryptoStego"><img style="position: absolute; top: 0; right: 0; border: 0;" src="fork.png" alt="Fork me on GitHub"></a>
 <div style="margin:30px 30px 30px 30px">
-<h1>DCT Version</h1>
-<p>Transform in frequency domain and thus robust to image compression. Yet image with information might look different with the original one.<br /></p>
-<p>Try <a href='png.html'>Least Significant Bit Version</a> to better conceal your message.</p><br />
+<h1>YASS Version</h1>
+<p>Hide your message using the steganographic method known as YASS<br /></p>
 <hr />
 <h1>HIDE MESSAGE INTO AN IMAGE</h1>
 Select an image: <input type="file" id="file" accept="image/*" /> <br /><br />
-Input Password (Optional): <input type="text" id="pass" value="" /> <br /><br />
+Input Password (Required): <input type="text" id="pass" value="" /> <br /><br />
 Message:<br /><textarea id="msg" style="width:100%;height:80px;" placeholder="Your Message Here!"></textarea> <br /><br />
 <button onclick='writeIMG()'>Hide My message to this Image</button>  
 <hr />
@@ -39,17 +38,17 @@ Results:<br />
 <script>
 function writeIMG(){
     function writefunc(){
-        if(writeMsgToCanvas('canvas',$("#msg").val(),$("#pass").val(),3)!=null){ 
-        var myCanvas = document.getElementById("canvas");  
-        var image = myCanvas.toDataURL("image/jpeg",1.0);    
-        var element = document.createElement('a');
-        element.setAttribute('href', image);
-        element.setAttribute('download', 'result.jpg');
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);        
-    }
+        if(writeMsgToCanvas('canvas',$("#msg").val(),$("#pass").val(),6)!=null) { 
+            var myCanvas = document.getElementById("canvas");  
+            var image = myCanvas.toDataURL("image/jpeg",1.0);    
+            var element = document.createElement('a');
+            element.setAttribute('href', image);
+            element.setAttribute('download', 'result.jpg');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);        
+        }
     }
     loadIMGtoCanvas('file','canvas',writefunc,500);
 }

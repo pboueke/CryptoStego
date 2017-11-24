@@ -2,12 +2,19 @@
 // Parameters optimized according to tests.
 function writeMsgToCanvas(canvasid,msg,pass,mode){
     mode=(mode=== undefined)?0:parseInt(mode);
+    var yass_options = {
+        bsize: 11
+    }
+
     switch (mode) {
         case 1: return writeMsgToCanvas_single(canvasid,msg,pass,true,11,15);
         case 2: return writeMsgToCanvas_single(canvasid,msg,pass,true,9,20);
         case 3: return writeMsgToCanvas_single(canvasid,msg,pass,true,5,30);
         case 4: return writeMsgToCanvas_single(canvasid,msg,pass,true,5,35);
         case 5: return writeMsgToCanvas_single(canvasid,msg,pass,true,5,50);
+
+        //yass
+        case 6: return writeMsgToCanvas_single(canvasid,msg,pass,true,5,30,yass_options);
         
         case 0:
         default: return writeMsgToCanvas_single(canvasid,msg,pass);
