@@ -73,7 +73,6 @@ function generate_pass(imgdatalength,information,pass,copy){
 }
 
 function dctset(imgData,dctdata,width,height,setarray,lim){
-    var yassKey = ""
     function norm(a){
         a=Math.round(a);
         a=(a>255)?255:a;

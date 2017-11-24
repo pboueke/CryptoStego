@@ -1,9 +1,9 @@
 //MAIN
 // Parameters optimized according to tests.
-function writeMsgToCanvas(canvasid,msg,pass,mode){
+function writeMsgToCanvas(canvasid,msg,pass,mode,copy,limit,bsize){
     mode=(mode=== undefined)?0:parseInt(mode);
     var yass_options = {
-        bsize: 11
+        bsize: bsize || 11
     }
 
     switch (mode) {
@@ -14,7 +14,7 @@ function writeMsgToCanvas(canvasid,msg,pass,mode){
         case 5: return writeMsgToCanvas_single(canvasid,msg,pass,true,5,50);
 
         //yass
-        case 6: return writeMsgToCanvas_single(canvasid,msg,pass,true,5,30,yass_options);
+        case 6: return writeMsgToCanvas_single(canvasid,msg,pass,true,copy,limit,yass_options);
         
         case 0:
         default: return writeMsgToCanvas_single(canvasid,msg,pass);
@@ -23,10 +23,10 @@ function writeMsgToCanvas(canvasid,msg,pass,mode){
 
 //Read msg from the image in canvasid.
 //Return msg (null -> fail)
-function readMsgFromCanvas(canvasid,pass,mode){
+function readMsgFromCanvas(canvasid,pass,mode,copy,limit,bsize){
     mode=(mode=== undefined)?0:parseInt(mode);
     var yass_options = {
-        bsize: 11
+        bsize: bsize || 11
     }
     switch (mode) {
         case 1: return readMsgFromCanvas_single(canvasid,pass,true,11,15);
@@ -35,7 +35,7 @@ function readMsgFromCanvas(canvasid,pass,mode){
         case 4: return readMsgFromCanvas_single(canvasid,pass,true,5,35);
         case 5: return readMsgFromCanvas_single(canvasid,pass,true,5,50);
         //yass
-        case 6: return readMsgFromCanvas_single(canvasid,pass,true,5,30,yass_options);        
+        case 6: return readMsgFromCanvas_single(canvasid,pass,true,copy,limit,yass_options);        
         case 0:
         default: return readMsgFromCanvas_single(canvasid,pass);
     }
