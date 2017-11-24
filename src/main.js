@@ -25,12 +25,17 @@ function writeMsgToCanvas(canvasid,msg,pass,mode){
 //Return msg (null -> fail)
 function readMsgFromCanvas(canvasid,pass,mode){
     mode=(mode=== undefined)?0:parseInt(mode);
+    var yass_options = {
+        bsize: 11
+    }
     switch (mode) {
         case 1: return readMsgFromCanvas_single(canvasid,pass,true,11,15);
         case 2: return readMsgFromCanvas_single(canvasid,pass,true,9,20);
         case 3: return readMsgFromCanvas_single(canvasid,pass,true,5,30);
         case 4: return readMsgFromCanvas_single(canvasid,pass,true,5,35);
         case 5: return readMsgFromCanvas_single(canvasid,pass,true,5,50);
+        //yass
+        case 6: return readMsgFromCanvas_single(canvasid,pass,true,5,30,yass_options);        
         case 0:
         default: return readMsgFromCanvas_single(canvasid,pass);
     }

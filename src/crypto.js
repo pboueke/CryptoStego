@@ -127,9 +127,9 @@ function yassconvert(imgData,width,height,opt){
 			var h_offset = rirg();
             var tmp=Array();
             for(var i=0;i<blocksize;i++) for(var j=0;j<blocksize;j++){
-                tmp.push(rgbtoycbcr(imgData[((h*opt.bsize+i+h_offset)*width+w*blocksize+j+w_offset)*4],
-				imgData[((h*blocksize+i+h_offset)*width+w*blocksize+j+w_offset)*4+1],
-				imgData[((h*blocksize+i+h_offset)*width+w*blocksize+j+w_offset)*4+2]
+                tmp.push(rgbtoycbcr(imgData[((h*opt.bsize+i+h_offset)*width+w*opt.bsize+j+w_offset)*4],
+				imgData[((h*opt.bsize+i+h_offset)*width+w*opt.bsize+j+w_offset)*4+1],
+				imgData[((h*opt.bsize+i+h_offset)*width+w*opt.bsize+j+w_offset)*4+2]
 				));
             }
             result.push(imagedct(tmp));

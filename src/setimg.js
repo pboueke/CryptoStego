@@ -139,7 +139,7 @@ function yassset(imgData,dctdata,width,height,setarray,lim,opt){
             for(var i=0;i<blocksize;i++) for(var j=0;j<blocksize;j++){
 				var rgb = ycbcrtorgb(tmp[i*blocksize+j][0],tmp[i*blocksize+j][1],tmp[i*blocksize+j][2]);
 				for(var chann=0;chann<3;chann++)
-					imgData[((h*blocksize+i+h_offset)*width+w*blocksize+j+w_offset)*4+chann]=norm(rgb[chann]);
+					imgData[((h*opt.bsize+i+h_offset)*width+w*opt.bsize+j+w_offset)*4+chann]=norm(rgb[chann]);
             }
             count++;
         }

@@ -61,15 +61,22 @@ function extractBitArraydct(dctdata,lim)
 
 //Read msg from the image in canvasid.
 //Return msg (null -> fail)
-function readMsgFromCanvas_single(canvasid,pass,dct,copy,lim){
-    dct=(dct === undefined)?false:dct;
+function readMsgFromCanvas_single(canvasid,pass,dct,copy,lim,yassopt){
+    yass=(yassopt=== undefined)?false:true;
+    if (yass && pass=== undefined) return null; //there must be a password for yass
+    dct=(yass)?true:((dct === undefined)?false:dct);
     pass=(pass=== undefined)?'':pass;
     copy=(copy=== undefined)?5:copy;
     lim=(lim=== undefined)?30:lim;
     var c=document.getElementById(canvasid);
     var ctx=c.getContext("2d");
     var imgData=ctx.getImageData(0,0,c.width,c.height);
-    var dctdata=(dct)?dctconvert(imgData.data,c.width,c.height):null;
+    if (yass) {
+        yassopt.pass = pass;
+        var dctdata = yassconvert(imgData.data,c.width,c.height,yassopt);
+    } else {
+        var dctdata=(dct)?dctconvert(imgData.data,c.width,c.height):null;
+    } 
     var bitarray = (dct)?extractBitArraydct(dctdata,lim):extractBitArray(imgData);
     var msgArray=(dct)?extractMsgArray_pass(bitarray,pass,copy):extractMsgArray_pass(bitarray,pass,1);
     if(msgArray==null) return null;
