@@ -1,3 +1,11 @@
+# [CryptoStego - YASS version](https://pboueke.github.io/CryptoStego/)
+
+This project uses the <a href="http://stego.js.org/">CryptoStego</a> framework/library created by <a href="https://github.com/zeruniverse">Jeffery Zhaos</a> to implement a new steganographic method, greatly inspired by the YASS method. You can read more about this fork at the <b>About</b> section [here](https://pboueke.github.io/CryptoStego/)
+
+* [Demo and explanation](https://pboueke.github.io/CryptoStego/)
+
+The remaining of the readme consists of the original [CryptoStego](https://github.com/zeruniverse/CryptoStego#advance-usage) repository readme.
+
 # CryptoStego  
 JS library for steganography with encryption - Hide text in an image with encryption and obfuscation. Support least significant bit mode and DCT mode.    
   
