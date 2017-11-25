@@ -4,7 +4,7 @@ This project uses the <a href="http://stego.js.org/">CryptoStego</a> framework/l
 
 * [Demo and explanation](https://pboueke.github.io/CryptoStego/)
 
-The remaining of the readme consists of the original [CryptoStego](https://github.com/zeruniverse/CryptoStego#advance-usage) repository readme.
+The remaining of the readme is the original [CryptoStego](https://github.com/zeruniverse/CryptoStego#advance-usage) repository readme.
 
 # CryptoStego  
 JS library for steganography with encryption - Hide text in an image with encryption and obfuscation. Support least significant bit mode and DCT mode.    
