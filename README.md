@@ -3,6 +3,7 @@
 This project uses the <a href="http://stego.js.org/">CryptoStego</a> framework/library created by <a href="https://github.com/zeruniverse">Jeffery Zhaos</a> to implement a new steganographic method, greatly inspired by the YASS method. You can read more about this fork at the <b>About</b> section [here](https://pboueke.github.io/CryptoStego/)
 
 * [Demo and explanation](https://pboueke.github.io/CryptoStego/)
+* [Presentation](https://pboueke.github.io/presentations/stegano/yass.html)
 
 The remaining of the readme is the original [CryptoStego](https://github.com/zeruniverse/CryptoStego#advance-usage) repository readme.
 
