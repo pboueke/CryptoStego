@@ -1,6 +1,10 @@
 // simple determinisct password conversion
 function stringToSeed(str) {
-    return str.split('').map(char=>char.charCodeAt(0)).reduce((c1,c2)=>(3*c1)+(7*c2));
+    if (str) {
+    	return str.split('').map(char=>char.charCodeAt(0)).reduce((c1,c2)=>(3*c1)+(7*c2));
+    } else { 
+        return 0;
+    }
 }
 
 Math.seed = function(s) {
